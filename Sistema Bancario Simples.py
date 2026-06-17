@@ -30,7 +30,8 @@ Deseja realizar mais alguma ação?: ) """)
         print ("Opção de saque selecionada!")
 
         sacar = float(input("Digite o valor que desejá sacar: R$ "))
-
+        #Arrumar aqui para que não quebre com letras
+        #Arrumar para que não quebre com virgula
         excedeu_limite = sacar > limite
         excedeu_saldo = sacar > saldo
         excedeu_saques = numero_saques >= LIMITE_SAQUES
