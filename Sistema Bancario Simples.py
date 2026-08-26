@@ -8,8 +8,8 @@ MenuInicial = """
 
 """
 extrato = ""
-saldo = 0
-limite = 500
+saldo = float(0)
+limite = float(500)
 numero_saques = 0
 LIMITE_SAQUES = 3
 
@@ -17,9 +17,15 @@ while True:
     opcao = input(MenuInicial)
     
     if opcao == "1":
-        print ("Opção de deposito selecionada!")
-        deposito = float(input("Digite o valor que desejá depositar: R$ "))
+        try:
+            print ("Opção de deposito selecionada!")
+            deposito = float(input("Digite o valor que desejá depositar: R$ ")
+                             .replace(",","."))
+        except ValueError:
+            print("Favor utilizar apenas numeros, exemplo: 2450,56")
+            continue
         if deposito > 0:
+
             saldo += deposito
             extrato += f"Depósito: R$ {deposito:.2f}\n"
             print(f"""A operação de deposito R${deposito:.2f} foi bem sucedida!
@@ -27,11 +33,14 @@ Seu saldo total é de R${saldo:.2f}
 Deseja realizar mais alguma ação?: ) """)
 
     elif opcao == "2":
-        print ("Opção de saque selecionada!")
+        try:
+            print ("Opção de saque selecionada!")
+            sacar = float(input("Digite o valor que desejá sacar: R$ ")
+                        .replace(",","."))
+        except ValueError:
+            print("Favor utilizar apenas numeros, exemplo: 2450,56")
+            continue
 
-        sacar = float(input("Digite o valor que desejá sacar: R$ "))
-        #Arrumar aqui para que não quebre com letras
-        #Arrumar para que não quebre com virgula
         excedeu_limite = sacar > limite
         excedeu_saldo = sacar > saldo
         excedeu_saques = numero_saques >= LIMITE_SAQUES
