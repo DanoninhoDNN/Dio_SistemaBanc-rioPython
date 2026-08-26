@@ -1,12 +1,23 @@
 print("Bem vindos ao ✧ Banco StarMax ✧ escolha uma opção a seguir")
-MenuInicial = """
 
-[1] DEPOSITAR
-[2] SACAR
-[3] EXTRATO
-[0] SAIR
+def menu():
+    menu = """
+    [1] DEPOSITAR
+    [2] SACAR
+    [3] EXTRATO
+    [0] SAIR
+    => """
+    return input(menu)
 
-"""
+def depositar(valor, saldo, extrato):
+    if valor > 0:
+        saldo += valor
+        extrato += f"Depósito: R$ {valor:.2f}\n"
+        print(f"""A operação de deposito R${valor:.2f} foi bem sucedida!
+Seu saldo total é de R${saldo:.2f} Deseja realizar mais alguma ação?: ) """)
+    else:
+        print("Favor inserir apenas valores numericos validos!")    
+
 extrato = ""
 saldo = float(0)
 limite = float(500)
@@ -14,7 +25,7 @@ numero_saques = 0
 LIMITE_SAQUES = 3
 
 while True:
-    opcao = input(MenuInicial)
+    opcao = menu()
     
     if opcao == "1":
         try:
@@ -24,13 +35,7 @@ while True:
         except ValueError:
             print("Favor utilizar apenas numeros, exemplo: 2450,56")
             continue
-        if deposito > 0:
-
-            saldo += deposito
-            extrato += f"Depósito: R$ {deposito:.2f}\n"
-            print(f"""A operação de deposito R${deposito:.2f} foi bem sucedida!
-Seu saldo total é de R${saldo:.2f}
-Deseja realizar mais alguma ação?: ) """)
+        depositar(deposito, saldo, extrato)
 
     elif opcao == "2":
         try:
@@ -40,7 +45,6 @@ Deseja realizar mais alguma ação?: ) """)
         except ValueError:
             print("Favor utilizar apenas numeros, exemplo: 2450,56")
             continue
-
         excedeu_limite = sacar > limite
         excedeu_saldo = sacar > saldo
         excedeu_saques = numero_saques >= LIMITE_SAQUES
